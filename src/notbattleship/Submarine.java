@@ -31,50 +31,25 @@ public class Submarine extends ScoutBoat implements Attacker{
 	public String attack(World world) {
 		// TODO Auto-generated method stub
 		if(numOfTorpedos > 0) {
-			switch(this.getDirection()) {
-			case "N":
-				Coordinates oneUp = world.getAdjacentLocation(this.getLocation(), 1);
-				if(world.isLocationValid(oneUp)) {
-					if(world.getOccupant(oneUp) != null){
+			Coordinates oneUp = world.getAdjacentLocation(this.getLocation(), this.getDirectioNum());
+			if(world.isLocationValid(oneUp)) {
+				if(world.getOccupant(oneUp) != null){
+					if(world.getOccupant(oneUp).getTeam() == this.getTeam()) return "Friendly Boat Ahead of " + this.getID();
 						Boat hitted = world.getOccupant(oneUp);
 						return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
-					}
 				}
-				Coordinates twoUp = world.getAdjacentLocation(oneUp, 1);
-				if(world.isLocationValid(twoUp)) {
-					if(world.getOccupant(world.getAdjacentLocation(oneUp, 1)) != null){
-						Boat hitted = world.getOccupant(twoUp);
-						return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
-					}
-				}
-				break;
-			case "NE":
-				
-				break;
-			case "E":
-				
-				break;
-			case "SE":
-				
-				break;
-			case "S":
-				
-				break;
-			case "SW":
-				
-				break;
-			case "W":
-				
-				break;
-			case "NW":
-				
-				break;
-			default:
-				
-				break;
 			}
+			Coordinates twoUp = world.getAdjacentLocation(oneUp, this.getDirectioNum());
+			if(world.isLocationValid(twoUp)) {
+				if(world.getOccupant(twoUp) != null){
+					if(world.getOccupant(oneUp).getTeam() == this.getTeam()) return "Friendly Boat Ahead of " + this.getID();
+					Boat hitted = world.getOccupant(twoUp);
+					return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
+				}
+			}
+			
 		}
-		else return this.getID() + " has no torpedos remaining.";
+		return this.getID() + " has no torpedos remaining.";
 	}
 
 	@Override
@@ -85,7 +60,8 @@ public class Submarine extends ScoutBoat implements Attacker{
 			if(choices[i] == 1) result += move(world) + "\n";
 			else if(choices[i] == 2) result += turn(-1) + "\n";
 			else if(choices[i] == 3) result += turn(1) + "\n";
-			else if(choices[i] == 4) result += 
+			else if(choices[i] == 4) result += submerge(world);
+			else if(choices[i] == 5) result += attack(world);
 		}
 		return result;
 	}

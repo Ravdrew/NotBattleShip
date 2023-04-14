@@ -25,6 +25,7 @@ public abstract class Boat {
 
 	public String move(World world) {
 		Coordinates wantMove = world.getAdjacentLocation(this.location, this.direction);
+		System.out.println(wantMove);
 		if(world.isLocationValid(wantMove) == false) {
 			return this.getID() + " cannot move off the map.";
 		}
@@ -91,16 +92,20 @@ public abstract class Boat {
 
 	public String getDirection() {
 		HashMap<Integer, String> dirDict = new HashMap<Integer, String>();
-		dirDict.put(0, "↑");
-		dirDict.put(1, "↗");
-		dirDict.put(2, "→");
-		dirDict.put(3, "↘");
-		dirDict.put(4, "↓");
-		dirDict.put(5, "↙");
-		dirDict.put(6, "←");
-		dirDict.put(7, "↖");
+		dirDict.put(0, "\u2191");
+		dirDict.put(1, "\u2197");
+		dirDict.put(2, "\u2192");
+		dirDict.put(3, "\u2198");
+		dirDict.put(4, "\u2193");
+		dirDict.put(5, "\u2199");
+		dirDict.put(6, "\u2190");
+		dirDict.put(7, "\u2196");
 		
 		return dirDict.get(direction);
+	}
+
+	public int getDirectioNum(){
+		return direction;
 	}
 	
 	public int getHealth() {

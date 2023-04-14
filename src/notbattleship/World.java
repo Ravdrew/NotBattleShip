@@ -34,6 +34,7 @@ public class World {
 	}
 	
 	public boolean isLocationValid(Coordinates cord) {
+		if(cord == null) return false;
 		if(cord.getX() > getWidth() - 1 || cord.getX() < 0) return false;
 		if(cord.getY() > getHeight() - 1 || cord.getY() < 0) return false;
 		return true;
@@ -86,6 +87,7 @@ public class World {
 				newCord = new Coordinates(cord.getX() - 1, cord.getY() - 1);
 				break;
 			default:
+				System.out.println("code broke");
 				newCord = null;
 				break;
 		}
@@ -104,18 +106,19 @@ public class World {
 		if(view == 1) {
 			int coff = 65;
 			for(int r = 0; r<this.getHeight(); r++) {
-				output += "\n\n" + (char) (coff + r) + " ";
+				output += "\n" + (char) (coff + r) + " ";
 				
 				for(int w = 0; w<this.getWidth(); w++) {
 					output+="###";
 				}
 			}
+			output += "\n";
 		}
 		
 		else if(view > 1) {
 			int coff = 65;
 			for(int r = 0; r<this.getHeight(); r++) {
-				output += "\n\n" + (char) (coff + r) + " ";
+				output += "\n" + (char) (coff + r) + " ";
 				
 				for(int c = 0; c<this.getWidth(); c++) {
 					String app = "###";
@@ -141,7 +144,7 @@ public class World {
 				}
 			}
 		}
-		
+		output += "\n";
 		return output;
 	}
 	
