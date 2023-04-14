@@ -58,7 +58,7 @@ public class Coordinates {
 		numDict.put(24, "Y");
 		numDict.put(25, "Z");
 		
-		return numDict.get(y) + Integer.toString(x);
+		return numDict.get(y) + Integer.toString(x + 1);
 	}
 	
 }

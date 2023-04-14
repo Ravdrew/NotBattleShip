@@ -61,7 +61,7 @@ public class AircraftCarrier extends Boat implements Attacker {
         }
 
         if (successRate == oldSucc) {
-            result += "There are no boats in range currently." + "\n";
+            result += this.getID() + " has no boats in range currently.";
         }
         
         return result;

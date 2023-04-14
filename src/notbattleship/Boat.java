@@ -25,19 +25,20 @@ public abstract class Boat {
 
 	public String move(World world) {
 		Coordinates wantMove = world.getAdjacentLocation(this.location, this.direction);
-		System.out.println(wantMove);
+		Coordinates prev = this.getLocation();
+		//System.out.println(wantMove);
 		if(world.isLocationValid(wantMove) == false) {
 			return this.getID() + " cannot move off the map.";
 		}
 		else {
 			if(world.isLocationOccupied(wantMove) == true) {
-				return this.getID() + "cannot move to " + wantMove.toString() + " as it is occupied.";
+				return this.getID() + " cannot move to " + wantMove.toString() + " as it is occupied.";
 			}
 			else {
-				world.setNull(this.getLocation());
+				World.setNull(this.getLocation());
 				this.setLocation(wantMove);
 				world.setOccupant(this, wantMove);
-				return this.getID() + " moves from " + location.toString() + " to " + wantMove.toString() + ".";
+				return this.getID() + " moves from " + prev.toString() + " to " + wantMove.toString() + ".";
 			}
 		}
 	}
@@ -55,10 +56,12 @@ public abstract class Boat {
 		
 		if(dirChange == -1) {
 			direction -= 1;
+			if(direction < 0) direction = 7;
 			return this.getID() + " turned left, now facing " + dirDict.get(this.getDirection());
 		}
 		else {
 			direction += 1;
+			if(direction > 7) direction = 0;
 			return this.getID() + " turned right, now facing " + dirDict.get(this.getDirection());
 		}
 	}
@@ -67,6 +70,7 @@ public abstract class Boat {
 		health -= atk;
 		if(health <= 0) {
 			health = 0;
+			World.setNull(this.getLocation());
 			return this.getID() + " has been sunk!";
 		}
 		else {
@@ -92,14 +96,14 @@ public abstract class Boat {
 
 	public String getDirection() {
 		HashMap<Integer, String> dirDict = new HashMap<Integer, String>();
-		dirDict.put(0, "\u2191");
-		dirDict.put(1, "\u2197");
-		dirDict.put(2, "\u2192");
-		dirDict.put(3, "\u2198");
-		dirDict.put(4, "\u2193");
-		dirDict.put(5, "\u2199");
-		dirDict.put(6, "\u2190");
-		dirDict.put(7, "\u2196");
+		dirDict.put(0, "^");
+		dirDict.put(1, "/");
+		dirDict.put(2, ">");
+		dirDict.put(3, "\\");
+		dirDict.put(4, "v");
+		dirDict.put(5, ",");
+		dirDict.put(6, "<");
+		dirDict.put(7, "`");
 		
 		return dirDict.get(direction);
 	}

@@ -1,7 +1,7 @@
 package notbattleship;
 
 public class World {
-	private Boat[][] map;
+	private static Boat[][] map;
 	public static final int NORTH = 0;
 	public static final int NORTHEAST = 1;
 	public static final int EAST = 2;
@@ -44,7 +44,7 @@ public class World {
 		return map[cord.getY()][cord.getX()] != null;
 	}
 	
-	public void setNull(Coordinates cord) {
+	public static void setNull(Coordinates cord) {
 		map[cord.getY()][cord.getX()] = null;
 	}
 	

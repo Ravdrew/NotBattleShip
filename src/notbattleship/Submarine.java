@@ -7,6 +7,7 @@ public class Submarine extends ScoutBoat implements Attacker{
 		super(teamID, cord, direction, 3, 2);
 		
 		numOfTorpedos = nOT;
+		if(numOfTorpedos == 0) numOfTorpedos = 4;
 	}
 
 	public String submerge(World world) {
@@ -21,7 +22,7 @@ public class Submarine extends ScoutBoat implements Attacker{
 			yDiff = Math.abs(this.getLocation().getY() - newCord.getY());
 		}
 		
-		world.setNull(this.getLocation());
+		World.setNull(this.getLocation());
 		this.setLocation(newCord);
 		world.setOccupant(this, newCord);
 		return this.getID() + " moves from " + oldCord.toString() + " to " + newCord.toString() + ".";
@@ -29,14 +30,14 @@ public class Submarine extends ScoutBoat implements Attacker{
 	
 	@Override
 	public String attack(World world) {
-		// TODO Auto-generated method stub
 		if(numOfTorpedos > 0) {
 			Coordinates oneUp = world.getAdjacentLocation(this.getLocation(), this.getDirectioNum());
 			if(world.isLocationValid(oneUp)) {
 				if(world.getOccupant(oneUp) != null){
 					if(world.getOccupant(oneUp).getTeam() == this.getTeam()) return "Friendly Boat Ahead of " + this.getID();
-						Boat hitted = world.getOccupant(oneUp);
-						return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
+					Boat hitted = world.getOccupant(oneUp);
+					numOfTorpedos -= 1;
+					return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
 				}
 			}
 			Coordinates twoUp = world.getAdjacentLocation(oneUp, this.getDirectioNum());
@@ -44,12 +45,17 @@ public class Submarine extends ScoutBoat implements Attacker{
 				if(world.getOccupant(twoUp) != null){
 					if(world.getOccupant(oneUp).getTeam() == this.getTeam()) return "Friendly Boat Ahead of " + this.getID();
 					Boat hitted = world.getOccupant(twoUp);
+					numOfTorpedos -= 1;
 					return "Fire torpedoes! " + hitted.takeHit(1 + (int) (Math.random() * hitted.getHealth()));
 				}
 			}
 			
 		}
-		return this.getID() + " has no torpedos remaining.";
+		else{
+			return this.getID() + " has no torpedos remaining.";
+		}
+
+		return this.getID() + " has no boats in range currently.";
 	}
 
 	@Override
