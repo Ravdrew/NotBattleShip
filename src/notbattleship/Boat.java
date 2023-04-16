@@ -57,12 +57,12 @@ public abstract class Boat {
 		if(dirChange == -1) {
 			direction -= 1;
 			if(direction < 0) direction = 7;
-			return this.getID() + " turned left, now facing " + dirDict.get(this.getDirection());
+			return this.getID() + " turned left, now facing " + dirDict.get(direction);
 		}
 		else {
 			direction += 1;
 			if(direction > 7) direction = 0;
-			return this.getID() + " turned right, now facing " + dirDict.get(this.getDirection());
+			return this.getID() + " turned right, now facing " + dirDict.get(direction);
 		}
 	}
 	

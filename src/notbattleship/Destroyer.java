@@ -10,7 +10,7 @@ public class Destroyer extends Boat implements Attacker{
 	}
 	
 	public String getActions() {
-		return "\"Choose any of the following actions for the Destroyer:\n"
+		return "Choose any of the following actions for the Destroyer:\n"
 				+ " 1. Move\n"
 				+ " 2. Turn left\n"
 				+ " 3. Turn right\n"

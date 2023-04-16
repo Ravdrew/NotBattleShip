@@ -43,6 +43,7 @@ public class Submarine extends ScoutBoat implements Attacker{
 			Coordinates twoUp = world.getAdjacentLocation(oneUp, this.getDirectioNum());
 			if(world.isLocationValid(twoUp)) {
 				if(world.getOccupant(twoUp) != null){
+					System.out.println(world.getOccupant(twoUp));
 					if(world.getOccupant(oneUp).getTeam() == this.getTeam()) return "Friendly Boat Ahead of " + this.getID();
 					Boat hitted = world.getOccupant(twoUp);
 					numOfTorpedos -= 1;

@@ -4,7 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "Tester",
+            "request": "launch",
+            "mainClass": "notbattleship.Tester",
+            "projectName": "NotBattleship"
+        },
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "notbattleship.Game",
+            "projectName": "NotBattleship"
+        },
         {
             "type": "java",
             "name": "Current File",

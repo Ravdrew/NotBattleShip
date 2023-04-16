@@ -131,7 +131,8 @@ public class World {
 						}
 						if(Math.abs(r - b.getLocation().getY()) <= b.getVision() && Math.abs(c - b.getLocation().getX()) <= b.getVision()){
 							if(this.isLocationOccupied(cord)) {
-								app = map[r][c].getDirection() + map[r][c].toString();
+								if(view == 2) app = map[r][c].getDirection() + map[r][c].toString();
+								if(view == 3) app = map[r][c].getHealth() + map[r][c].toString();
 								break;
 							}
 							else {
